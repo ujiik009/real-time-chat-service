@@ -1,13 +1,17 @@
 // const express = require('express')
 import express, { Application, Request, Response } from "express"
-
+import cors from 'cors';
 import * as socketio from 'socket.io';
 const apiService: Application = express()
 const server = require('http').Server(apiService);
-
-const io: socketio.Server = new socketio.Server();
+apiService.use(cors)
+const io: socketio.Server = new socketio.Server({
+    cors: {
+        origin: '*',
+    }
+});
 io.attach(server);
-const port: Number = 3000
+const port: Number = 3333
 
 
 
@@ -16,11 +20,11 @@ apiService.get('/', async (_: Request, res: Response) => {
 });
 
 io.on('connection', (socket: socketio.Socket) => {
-    console.log('connection',socket.id);
+    console.log('connection', socket.id);
     socket.emit('status', 'Hello from Socket.io');
 
     socket.on('disconnect', () => {
-        console.log('client disconnected',socket.id);
+        console.log('client disconnected', socket.id);
     })
 });
 
