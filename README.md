@@ -12,3 +12,16 @@ Builds the app at build, cleaning the folder first.
 
 Starts the app in production by first building the project with npm run build, and then executing the compiled JavaScript at build/index.js.
 
+
+## enable authen mongodb
+[link](https://devahoy.com/blog/2017/01/how-to-enable-authentication-in-mongodb/)
+
+``` mongo -u 'mongo-admin' -p 'ikool009' --authenticationDatabase 'admin'
+
+use <myDB>
+
+db.createUser({
+  user: 'chat_admin',
+  pwd: '1234',
+  roles: ['readWrite']
+```
